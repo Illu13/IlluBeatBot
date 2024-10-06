@@ -1,6 +1,8 @@
 import os
 import urllib
 from io import BytesIO
+from time import sleep
+
 from PIL import Image
 import tweepy
 from searching_song import get_song
@@ -40,11 +42,13 @@ def get_image(photo):
 auth = tweepy.OAuthHandler(consumer_key=API_KEY, consumer_secret=API_SECRET_KEY)
 auth.set_access_token(key=ACCESS_TOKEN, secret=ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
-song = get_song()
-photo = get_image(song[1])
-# Upload media to Twitter APIv1.1
-ret = api.media_upload(filename="proof", file=photo)
-apiUploadTweet.create_tweet(text=song[0], media_ids=[ret.media_id_string])
-
+while True:
+    song = get_song()
+    photo = get_image(song[1])
+    # Upload media to Twitter APIv1.1
+    ret = api.media_upload(filename="proof", file=photo)
+    apiUploadTweet.create_tweet(text=song[0], media_ids=[ret.media_id_string])
+    print("Canción subida.")
+    sleep(3600)
 
 
