@@ -36,6 +36,8 @@ def get_image(photo):
     b = BytesIO()
     img.save(b, "PNG")
     b.seek(0)
+    os.remove("song.png")
+
     return b
 # Setup Tweepy API
 
@@ -49,6 +51,6 @@ while True:
     ret = api.media_upload(filename="proof", file=photo)
     apiUploadTweet.create_tweet(text=song[0], media_ids=[ret.media_id_string])
     print("Canción subida.")
-    sleep(3600)
+    sleep(43200)
 
 
